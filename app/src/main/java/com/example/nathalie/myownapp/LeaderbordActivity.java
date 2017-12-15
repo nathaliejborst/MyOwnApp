@@ -1,8 +1,20 @@
+/*
+ * Copyright 2017 Nathalie Borst
+ *
+ * App implementing the use of a trivia API, which let the user play a quiz game
+ * Only obtainable under permission of the creator
+ *
+ */
+
 package com.example.nathalie.myownapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -70,5 +82,22 @@ public class LeaderbordActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(postListener);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.logout_action) {
+            logOut();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(LeaderbordActivity.this, LoginActivity.class);
+        startActivity(intent);
+    }
 }

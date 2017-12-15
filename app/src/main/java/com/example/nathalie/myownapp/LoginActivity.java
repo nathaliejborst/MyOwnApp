@@ -1,3 +1,11 @@
+/*
+ * Copyright 2017 Nathalie Borst
+ *
+ * App implementing the use of a trivia API, which let the user play a quiz game
+ * Only obtainable under permission of the creator
+ *
+ */
+
 package com.example.nathalie.myownapp;
 
 import android.app.ProgressDialog;
@@ -34,9 +42,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize firebase instance
         mAuth = FirebaseAuth.getInstance();
         mProgress = new ProgressDialog(this);
 
+        // Get views from XML
         email_input = (EditText)findViewById(R.id.input_email);
         password_input = (EditText)findViewById(R.id.input_password);
         register_button = (Button)findViewById(R.id.register_button);
@@ -45,11 +55,11 @@ public class LoginActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                // Redirect if the user is already logged in
-                if(firebaseAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }
+            // Redirect if the user is already logged in
+            if(firebaseAuth.getCurrentUser() != null) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
             }
         };
 
@@ -93,6 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                     if(task.isSuccessful()) {
                         mProgress.dismiss();
                         Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
+
+                        // Redirect user to main page
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
 

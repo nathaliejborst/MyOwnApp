@@ -52,12 +52,11 @@ public class QuestionFragment extends android.support.v4.app.ListFragment {
     int questionCounter = 0;
     TextView question_tv, score_tv;
 
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Request json from API
         getJSON();
     }
 
@@ -87,10 +86,10 @@ public class QuestionFragment extends android.support.v4.app.ListFragment {
     @Override
     public void onListItemClick(ListView listview, View view, int position, long id) {
         super.onListItemClick(listview, view, position, id);
-        Log.d("hallo_counter", String.valueOf(questionCounter));
+
         // Make sure the list does not go out of bound
         if (questionCounter < 11) {
-            // Initialize bundle to send to next fragment
+            // Initialize bundle for fragment
             QuestionFragment questionFragment = new QuestionFragment();
             String clickedAnswer = listview.getItemAtPosition(position).toString();
             Bundle args = new Bundle();
@@ -193,7 +192,6 @@ public class QuestionFragment extends android.support.v4.app.ListFragment {
 
     // Check is answer is correct and keeps track of score
     public boolean checkAnswer(String chosenAnswer, String correctAnswer) {
-        Log.d("hallo_chosen, correct", chosenAnswer + ", " + correctAnswer);
         if (chosenAnswer == correctAnswer) {
             score += 10;
             return true;
@@ -226,6 +224,7 @@ public class QuestionFragment extends android.support.v4.app.ListFragment {
             } });
         adb.show();
     }
+
     public void changeScoreInDB (){
         final DatabaseReference updateScore = FirebaseDatabase.getInstance().getReference("users").child(String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getUid())).child("score");
         updateScore.addValueEventListener(new ValueEventListener() {
@@ -237,6 +236,7 @@ public class QuestionFragment extends android.support.v4.app.ListFragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.d("DATABASE ERROR", "Error when requesting a response from database");
             }
         });
 
@@ -253,6 +253,7 @@ public class QuestionFragment extends android.support.v4.app.ListFragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.d("DATABASE ERROR", "Error when requesting a response from database");
             }
         };
     }

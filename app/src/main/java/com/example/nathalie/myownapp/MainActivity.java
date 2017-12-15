@@ -1,3 +1,11 @@
+/*
+ * Copyright 2017 Nathalie Borst
+ *
+ * App implementing the use of a trivia API, which let the user play a quiz game
+ * Only obtainable under permission of the creator
+ *
+ */
+
 package com.example.nathalie.myownapp;
 
 import android.app.ProgressDialog;
@@ -5,6 +13,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
             // Anonymous listeners because switch - case in listener does not work
             start_button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, QuizActivity.class);
-                    startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+                startActivity(intent);
                 }
             });
     }
@@ -74,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getNameFromDB (){
-
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -87,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("DATABASE ERROR", "Error when requesting a response from database");
             }
         };
         mDatabase.addValueEventListener(postListener);

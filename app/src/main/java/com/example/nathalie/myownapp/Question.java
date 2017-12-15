@@ -1,10 +1,14 @@
+/*
+ * Copyright 2017 Nathalie Borst
+ *
+ * App implementing the use of a trivia API, which let the user play a quiz game
+ * Only obtainable under permission of the creator
+ *
+ */
+
 package com.example.nathalie.myownapp;
 
 import java.util.List;
-
-/**
- * Created by Nathalie on 15-12-2017.
- */
 
 public class Question {
     private String question;
